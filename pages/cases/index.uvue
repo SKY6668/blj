@@ -1,0 +1,42 @@
+<template>
+  <view class="page">
+    <text class="title">病例列表</text>
+    <text class="description">页面导航骨架已就绪；病例数据将在后续阶段接入。</text>
+    <button @click="goTo('case-edit')">新建病例</button>
+    <button @click="goTo('case-detail')">病例详情</button>
+    <button @click="goTo('presentation')">展示册</button>
+    <button @click="goTo('share-settings')">分享设置</button>
+  </view>
+</template>
+
+<script setup lang="uts">
+function goTo(page: string) {
+  uni.navigateTo({ url: `/pages/${page}/index` })
+}
+</script>
+
+<style>
+.page {
+  min-height: 100%;
+  padding: 48px 24px;
+  background-color: #f5f7fb;
+}
+
+.title {
+  display: block;
+  color: #1c2a3a;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.description {
+  display: block;
+  margin: 12px 0 24px;
+  color: #617084;
+  font-size: 16px;
+}
+
+button {
+  margin-bottom: 12px;
+}
+</style>
