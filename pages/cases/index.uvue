@@ -1,0 +1,50 @@
+<template>
+  <view class="page">
+    <text class="title">病例列表</text>
+    <text class="description">仅展示匿名演示病例。</text>
+    <case-filter-bar @change="updateFilter" />
+    <case-card v-for="caseRecord in filteredCases" :key="caseRecord.id" :case-record="caseRecord" />
+    <text v-if="filteredCases.length === 0" class="empty">没有匹配的病例。</text>
+    <button @click="goToEdit">新建病例</button>
+    <button @click="logout">退出登录</button>
+  </view>
+</template>
+
+<script lang="uts">
+import CaseCard from '../../src/components/case-card.uvue'
+import CaseFilterBar from '../../src/components/case-filter-bar.uvue'
+import { createDemoAuthRepository } from '../../src/data/auth-repository'
+import { createLocalCaseRepository } from '../../src/data/case-repository'
+import { getBrowserStorage } from '../../src/data/storage'
+import { filterCases } from '../../src/services/case-filter'
+
+export default {
+  components: { CaseCard, CaseFilterBar },
+  data() {
+    return {
+      caseRecords: createLocalCaseRepository(getBrowserStorage()).list(),
+      filter: { keyword: '', treatmentType: '', toothPosition: '', tag: '' },
+    }
+  },
+  computed: {
+    filteredCases() {
+      return filterCases(this.caseRecords, this.filter)
+    },
+  },
+  methods: {
+    updateFilter(filter: object) { this.filter = filter },
+    goToEdit() { uni.navigateTo({ url: '/pages/case-edit/index' }) },
+    logout() {
+      createDemoAuthRepository(getBrowserStorage()).logout()
+      uni.reLaunch({ url: '/pages/index/index' })
+    },
+  },
+}
+</script>
+
+<style>
+.page { min-height: 100%; padding: 32px 20px; background-color: #f5f7fb; }
+.title { display: block; color: #1c2a3a; font-size: 28px; font-weight: 600; }
+.description, .empty { display: block; margin-top: 8px; color: #617084; }
+button { margin-top: 12px; }
+</style>

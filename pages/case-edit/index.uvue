@@ -1,0 +1,19 @@
+<template>
+  <view class="page">
+    <text class="title">新建病例</text>
+    <text class="description">该功能将在后续阶段实现。</text>
+    <button @click="backToCases">返回病例列表</button>
+  </view>
+</template>
+
+<script setup lang="uts">
+function backToCases() {
+  uni.reLaunch({ url: '/pages/cases/index' })
+}
+</script>
+
+<style>
+.page { min-height: 100%; padding: 48px 24px; background-color: #f5f7fb; }
+.title { display: block; color: #1c2a3a; font-size: 28px; font-weight: 600; }
+.description { display: block; margin: 12px 0 24px; color: #617084; font-size: 16px; }
+</style>

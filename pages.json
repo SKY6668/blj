@@ -3,7 +3,37 @@
     {
       "path": "pages/index/index",
       "style": {
-        "navigationBarTitleText": "牙科病例库"
+        "navigationBarTitleText": "演示登录"
+      }
+    },
+    {
+      "path": "pages/cases/index",
+      "style": {
+        "navigationBarTitleText": "病例列表"
+      }
+    },
+    {
+      "path": "pages/case-edit/index",
+      "style": {
+        "navigationBarTitleText": "新建病例"
+      }
+    },
+    {
+      "path": "pages/case-detail/index",
+      "style": {
+        "navigationBarTitleText": "病例详情"
+      }
+    },
+    {
+      "path": "pages/presentation/index",
+      "style": {
+        "navigationBarTitleText": "展示册"
+      }
+    },
+    {
+      "path": "pages/share-settings/index",
+      "style": {
+        "navigationBarTitleText": "分享设置"
       }
     }
   ],
