@@ -3,3 +3,4 @@ unpackage/
 .hbuilderx/
 node_modules/
 coverage/
+.worktrees/
