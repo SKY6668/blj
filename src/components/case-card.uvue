@@ -1,0 +1,22 @@
+<template>
+  <view class="card">
+    <text class="code">{{ caseRecord.caseCode }}</text>
+    <text class="treatment">{{ caseRecord.treatmentType }} · {{ caseRecord.toothPositions.join('、') }}</text>
+    <text class="summary">{{ caseRecord.summary }}</text>
+    <text class="tags">{{ caseRecord.tags.join(' · ') }}</text>
+  </view>
+</template>
+
+<script lang="uts">
+export default {
+  props: { caseRecord: { type: Object, required: true } },
+}
+</script>
+
+<style>
+.card { margin-bottom: 12px; padding: 16px; border-radius: 8px; background-color: #ffffff; }
+.code, .treatment, .summary, .tags { display: block; }
+.code { color: #1c2a3a; font-size: 18px; font-weight: 600; }
+.treatment, .summary { margin-top: 8px; color: #617084; }
+.tags { margin-top: 10px; color: #2d6a9f; font-size: 14px; }
+</style>

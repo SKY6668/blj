@@ -1,0 +1,32 @@
+<template>
+  <view class="filters">
+    <input v-model="keyword" placeholder="搜索病例编号、说明或标签" @input="emitFilter" />
+    <input v-model="treatmentType" placeholder="治疗类型" @input="emitFilter" />
+    <input v-model="toothPosition" placeholder="牙位" @input="emitFilter" />
+    <input v-model="tag" placeholder="标签" @input="emitFilter" />
+  </view>
+</template>
+
+<script lang="uts">
+export default {
+  emits: ['change'],
+  data() {
+    return { keyword: '', treatmentType: '', toothPosition: '', tag: '' }
+  },
+  methods: {
+    emitFilter() {
+      this.$emit('change', {
+        keyword: this.keyword,
+        treatmentType: this.treatmentType,
+        toothPosition: this.toothPosition,
+        tag: this.tag,
+      })
+    },
+  },
+}
+</script>
+
+<style>
+.filters { margin: 16px 0; }
+input { box-sizing: border-box; width: 100%; height: 40px; margin-bottom: 8px; padding: 0 12px; border: 1px solid #c7d0dc; border-radius: 6px; background-color: #ffffff; }
+</style>
