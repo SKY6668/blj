@@ -1,13 +1,50 @@
 <template>
-  <view class="page-container">
+  <view class="page">
     <text class="title">牙科病例库</text>
-    <text class="subtitle">匿名病例整理与展示原型</text>
+    <text class="description">演示登录，不可用于真实账号。</text>
+    <input v-model="email" class="input" placeholder="邮箱" />
+    <input v-model="password" class="input" password placeholder="密码" />
+    <button @click="submitLogin">登录</button>
+    <text v-if="errorMessage" class="error">{{ errorMessage }}</text>
+    <text class="hint">演示账号：{{ demoAccount.email }} / {{ demoAccount.password }}</text>
   </view>
 </template>
 
+<script lang="uts">
+import { createDemoAuthRepository, demoAccount } from '../../src/data/auth-repository'
+import { getBrowserStorage } from '../../src/data/storage'
+
+export default {
+  data() {
+    return {
+      demoAccount,
+      email: '',
+      password: '',
+      errorMessage: '',
+    }
+  },
+  methods: {
+    submitLogin() {
+      this.errorMessage = ''
+      const authRepository = createDemoAuthRepository(getBrowserStorage())
+      const session = authRepository.login(this.email, this.password)
+
+      if (!session) {
+        this.errorMessage = '演示账号或密码不正确。'
+        return
+      }
+
+      uni.reLaunch({ url: '/pages/cases/index' })
+    },
+  },
+}
+</script>
+
 <style>
-.page-container {
+.page {
+  min-height: 100%;
   padding: 48px 24px;
+  background-color: #f5f7fb;
 }
 
 .title {
@@ -17,10 +54,33 @@
   font-weight: 600;
 }
 
-.subtitle {
+.description,
+.hint {
   display: block;
   margin-top: 12px;
   color: #617084;
   font-size: 16px;
+}
+
+.input {
+  box-sizing: border-box;
+  width: 100%;
+  height: 44px;
+  margin-top: 16px;
+  padding: 0 12px;
+  border: 1px solid #c7d0dc;
+  border-radius: 6px;
+  background-color: #ffffff;
+}
+
+button {
+  margin-top: 20px;
+}
+
+.error {
+  display: block;
+  margin-top: 12px;
+  color: #c63b3b;
+  font-size: 14px;
 }
 </style>

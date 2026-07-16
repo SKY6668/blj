@@ -23,3 +23,12 @@ test('页面入口为登录页且所有骨架路由均已注册', () => {
     expect(existsSync(resolve(root, `${pagePath}.uvue`))).toBe(true)
   }
 })
+
+test('登录页复用演示认证仓库并在成功后进入病例列表', () => {
+  const loginPage = readFileSync(resolve(root, 'pages/index/index.uvue'), 'utf8')
+
+  expect(loginPage).toContain("createDemoAuthRepository")
+  expect(loginPage).toContain("getBrowserStorage")
+  expect(loginPage).toContain("/pages/cases/index")
+  expect(loginPage).toContain("演示账号或密码不正确。")
+})
