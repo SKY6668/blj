@@ -1,0 +1,16 @@
+{
+  "pages": [
+    {
+      "path": "pages/index/index",
+      "style": {
+        "navigationBarTitleText": "牙科病例库"
+      }
+    }
+  ],
+  "globalStyle": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "牙科病例库",
+    "navigationBarBackgroundColor": "#f5f7fb",
+    "backgroundColor": "#f5f7fb"
+  }
+}

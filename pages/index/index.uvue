@@ -1,0 +1,26 @@
+<template>
+  <view class="page-container">
+    <text class="title">牙科病例库</text>
+    <text class="subtitle">匿名病例整理与展示原型</text>
+  </view>
+</template>
+
+<style>
+.page-container {
+  padding: 48px 24px;
+}
+
+.title {
+  display: block;
+  color: #1c2a3a;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.subtitle {
+  display: block;
+  margin-top: 12px;
+  color: #617084;
+  font-size: 16px;
+}
+</style>

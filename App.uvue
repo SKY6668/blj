@@ -1,0 +1,12 @@
+<script setup lang="uts">
+onLaunch(() => {
+  console.log('牙科病例库已启动')
+})
+</script>
+
+<style>
+.page-container {
+  flex: 1;
+  background-color: #f5f7fb;
+}
+</style>

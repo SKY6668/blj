@@ -1,0 +1,49 @@
+{
+	"name": "牙科病例库",
+	"appid": "__UNI__92E080D",
+	"description": "用于匿名病例整理、展示和学习交流的跨端原型。",
+	"versionName": "0.1.0",
+	"versionCode": "100",
+	"uni-app-x": {
+		"styleIsolationVersion": "2"
+	},
+	"vueVersion": "3",
+	"app": {
+		"distribute": {
+			"icons": {
+				"android": {
+					"hdpi": "",
+					"xhdpi": "",
+					"xxhdpi": "",
+					"xxxhdpi": ""
+				}
+			}
+		}
+	},
+	"app-android": {
+		"distribute": {
+			"modules": {},
+			"icons": {
+				"hdpi": "",
+				"xhdpi": "",
+				"xxhdpi": "",
+				"xxxhdpi": ""
+			},
+			"splashScreens": {
+				"default": {}
+			}
+		}
+	},
+	"app-ios": {
+		"distribute": {
+			"modules": {},
+			"icons": {},
+			"splashScreens": {}
+		}
+	},
+	"web": {
+		"router": {
+			"mode": ""
+		}
+	}
+}

@@ -1,0 +1,13 @@
+{
+  "name": "dental-case-library",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build:h5": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build-h5.ps1",
+    "test": "vitest run --passWithNoTests"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.18"
+  }
+}
