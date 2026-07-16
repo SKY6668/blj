@@ -1,15 +1,9 @@
 ﻿$projectRoot = Split-Path -Parent $PSScriptRoot
 $hBuilderRoot = Join-Path $env:LOCALAPPDATA 'Programs\HBuilderX\HBuilderX'
-$hBuilderExecutable = Join-Path $hBuilderRoot 'HBuilderX.exe'
 $cliExecutable = Join-Path $hBuilderRoot 'cli.exe'
 
 if (-not (Test-Path -LiteralPath $cliExecutable)) {
   throw "未找到 HBuilderX CLI：$cliExecutable"
-}
-
-if (-not (Get-Process -Name HBuilderX -ErrorAction SilentlyContinue)) {
-  Start-Process -FilePath $hBuilderExecutable
-  Start-Sleep -Seconds 8
 }
 
 $connectionErrors = @(
@@ -17,8 +11,25 @@ $connectionErrors = @(
   '与主程序的连接已中断'
 )
 
-$openOutput = (& $cliExecutable project open --path $projectRoot 2>&1 | Out-String)
-$openExitCode = $LASTEXITCODE
+$cliOpenOutput = (& $cliExecutable open 2>&1 | Out-String)
+$cliOpenExitCode = $LASTEXITCODE
+Write-Output $cliOpenOutput
+if ($cliOpenExitCode -ne 0) {
+  exit 1
+}
+
+$openOutput = ''
+$openExitCode = 1
+for ($attempt = 1; $attempt -le 10; $attempt++) {
+  $openOutput = (& $cliExecutable project open --path $projectRoot 2>&1 | Out-String)
+  $openExitCode = $LASTEXITCODE
+  if ($openExitCode -eq 0 -and -not ($connectionErrors | Where-Object { $openOutput.Contains($_) })) {
+    break
+  }
+
+  Start-Sleep -Seconds 1
+}
+
 Write-Output $openOutput
 if ($openExitCode -ne 0 -or ($connectionErrors | Where-Object { $openOutput.Contains($_) })) {
   exit 1

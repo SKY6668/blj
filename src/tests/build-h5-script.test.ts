@@ -18,3 +18,10 @@ test('H5 构建脚本会把 CLI 连接错误转换为失败退出码', () => {
   expect(script).toContain('与主程序的连接已中断')
   expect(script).toContain('exit 1')
 })
+
+test('H5 构建脚本会先通过 CLI 建立 HBuilderX 连接', () => {
+  const script = readFileSync(resolve(process.cwd(), 'scripts/build-h5.ps1'), 'utf8')
+
+  expect(script).toContain('& $cliExecutable open')
+  expect(script).not.toContain('Start-Process -FilePath $hBuilderExecutable')
+})
