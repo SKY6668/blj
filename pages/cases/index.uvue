@@ -17,6 +17,7 @@ import { createDemoAuthRepository } from '../../src/data/auth-repository'
 import { createLocalCaseRepository } from '../../src/data/case-repository'
 import { getBrowserStorage } from '../../src/data/storage'
 import { filterCases } from '../../src/services/case-filter'
+import type { CaseFilter } from '../../src/services/case-filter'
 
 export default {
   components: { CaseCard, CaseFilterBar },
@@ -32,7 +33,14 @@ export default {
     },
   },
   methods: {
-    updateFilter(filter: object) { this.filter = filter },
+    updateFilter(filter: CaseFilter) {
+      this.filter = {
+        keyword: filter.keyword ?? '',
+        treatmentType: filter.treatmentType ?? '',
+        toothPosition: filter.toothPosition ?? '',
+        tag: filter.tag ?? '',
+      }
+    },
     goToEdit() { uni.navigateTo({ url: '/pages/case-edit/index' }) },
     logout() {
       createDemoAuthRepository(getBrowserStorage()).logout()

@@ -1,19 +1,25 @@
 <template>
-  <view class="page">
-    <text class="title">新建病例</text>
-    <text class="description">该功能将在后续阶段实现。</text>
-    <button @click="backToCases">返回病例列表</button>
-  </view>
+  <view class="page"><text class="title">新建病例</text><case-form @submit="saveCase" /><text v-if="errorMessage" class="error">{{ errorMessage }}</text></view>
 </template>
-
-<script setup lang="uts">
-function backToCases() {
-  uni.reLaunch({ url: '/pages/cases/index' })
+<script lang="uts">
+import CaseForm from '../../src/components/case-form.uvue'
+import { createLocalCaseRepository } from '../../src/data/case-repository'
+import { getBrowserStorage } from '../../src/data/storage'
+import { validateCaseDraft, type CaseDraft } from '../../src/services/case-validation'
+import type { CaseRecord } from '../../src/domain/case'
+export default {
+  components: { CaseForm },
+  data() { return { errorMessage: '' } },
+  methods: {
+    saveCase(draft: CaseDraft) {
+      const errors = validateCaseDraft(draft)
+      if (Object.keys(errors).length) { this.errorMessage = Object.values(errors)[0]; return }
+      const now = new Date().toISOString()
+      const caseRecord: CaseRecord = { ...draft, id: `case-${Date.now()}`, createdAt: now, updatedAt: now }
+      createLocalCaseRepository(getBrowserStorage()).save(caseRecord)
+      uni.reLaunch({ url: '/pages/cases/index' })
+    },
+  },
 }
 </script>
-
-<style>
-.page { min-height: 100%; padding: 48px 24px; background-color: #f5f7fb; }
-.title { display: block; color: #1c2a3a; font-size: 28px; font-weight: 600; }
-.description { display: block; margin: 12px 0 24px; color: #617084; font-size: 16px; }
-</style>
+<style>.page { min-height:100%; padding:32px 20px; background:#f5f7fb; }.title { display:block; margin-bottom:16px; color:#1c2a3a; font-size:28px; font-weight:600; }.error { display:block; color:#c63b3b; }</style>

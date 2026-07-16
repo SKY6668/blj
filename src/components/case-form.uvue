@@ -1,0 +1,31 @@
+<template>
+  <view>
+    <input v-model="caseCode" placeholder="匿名病例编号" />
+    <input v-model="treatmentType" placeholder="治疗类型" />
+    <input v-model="toothPositionsText" placeholder="牙位，多个以逗号分隔" />
+    <input v-model="treatmentDate" placeholder="治疗日期（YYYY-MM-DD）" />
+    <input v-model="tagsText" placeholder="标签，多个以逗号分隔" />
+    <textarea v-model="summary" placeholder="匿名病例说明" />
+    <view class="images"><text>术前 / 过程 / 术后图片仅支持本地占位预览，不会上传。</text></view>
+    <label><checkbox v-model="deidentifiedConfirmed" /> 我已确认该病例已脱敏</label>
+    <text v-if="errorMessage" class="error">{{ errorMessage }}</text>
+    <button @click="submit">保存病例</button>
+  </view>
+</template>
+
+<script lang="uts">
+export default {
+  emits: ['submit'],
+  data() { return { caseCode: '', treatmentType: '', toothPositionsText: '', treatmentDate: '', tagsText: '', summary: '', deidentifiedConfirmed: false, errorMessage: '' } },
+  methods: {
+    submit() {
+      this.$emit('submit', { caseCode: this.caseCode, treatmentType: this.treatmentType, toothPositions: this.toothPositionsText.split(',').map((item: string) => item.trim()).filter((item: string) => item), treatmentDate: this.treatmentDate, tags: this.tagsText.split(',').map((item: string) => item.trim()).filter((item: string) => item), summary: this.summary, images: [], deidentifiedConfirmed: this.deidentifiedConfirmed })
+    },
+  },
+}
+</script>
+
+<style>
+input, textarea { box-sizing: border-box; width: 100%; margin: 8px 0; padding: 10px; border: 1px solid #c7d0dc; border-radius: 6px; background: #fff; }
+textarea { height: 96px; } .images { margin: 10px 0; padding: 12px; color: #617084; background: #eef2f7; } .error { display:block; color:#c63b3b; }
+</style>

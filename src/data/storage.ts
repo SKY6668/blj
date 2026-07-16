@@ -5,9 +5,10 @@ export interface KeyValueStorage {
 }
 
 export function getBrowserStorage(): KeyValueStorage {
-  if (typeof globalThis.localStorage === 'undefined') {
+  const browserGlobal = globalThis as typeof globalThis & { localStorage?: KeyValueStorage }
+  if (!browserGlobal.localStorage) {
     throw new Error('当前环境不支持本地存储。')
   }
 
-  return globalThis.localStorage
+  return browserGlobal.localStorage
 }
